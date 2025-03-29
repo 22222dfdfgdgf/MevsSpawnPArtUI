@@ -1,0 +1,520 @@
+-- Ensure Rayfield loads properly
+local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield', true))()
+
+-- Wait for Rayfield to load completely before proceeding
+if not Rayfield then
+    warn("Failed to load Rayfield!")
+    return
+end
+
+local Window = Rayfield:CreateWindow({
+    Name = "Mev's Troll Hub",
+    LoadingTitle = "Mev's Troll Hub",
+    LoadingSubtitle = "by Mevv",
+    Theme = "Ocean",
+
+    DisableRayfieldPrompts = false,
+    DisableBuildWarnings = false,
+
+    ConfigurationSaving = {
+        Enabled = true,
+        FolderName = "MevsTrollHub",
+        FileName = "MevsTrollHub_Config"
+    },
+
+    Discord = {
+        Enabled = false,
+        Invite = "noinvitelink",
+        RememberJoins = true
+    },
+
+    KeySystem = true,
+    KeySettings = {
+        Title = "Join Discord",
+        Subtitle = "Mev's Key System",
+        Note = "Join My discord for the Key (https://discord.gg/FqyZWE9nz4)",
+        FileName = "Key",
+        SaveKey = true,
+        GrabKeyFromSite = true,
+        Key = {"https://pastebin.com/raw/w051pyzV"}
+    }
+})
+
+-- Load Configuration
+Rayfield.LoadConfiguration()
+
+-- Main Tab
+local MainTab = Window:CreateTab("Troll 🔥")
+local MainSection = MainTab:CreateSection("W Trol UI -- Made by Mevv")
+
+-- Chat Tab
+local ChatTab = Window:CreateTab("Chat Troll 💬")
+local ChatSection = ChatTab:CreateSection("Chat Spam -- Made by Mevv")
+
+-- New Troll Tab
+local TrollTab = Window:CreateTab("Troll Tab 😈")
+local TrollSection = TrollTab:CreateSection("Troll Particle Troll -- Made by Mevv")
+
+-- New Teleport Tab
+local TeleportTab = Window:CreateTab("Teleports ✈️")
+local TeleportSection = TeleportTab:CreateSection("Teleport Options -- Made by Mevv")
+
+-- Emote Tab
+local EmoteTab = Window:CreateTab("Emotes 🕺")
+local EmoteSection = EmoteTab:CreateSection("Emote Choice -- Made by Mevv")
+
+Rayfield:Notify({
+    Title = "You executed the script",
+    Content = "Very cool GUI",
+    Duration = 5,
+    Image = 13047715178,
+    Actions = {
+        Ignore = {
+            Name = "Okay!",
+            Callback = function()
+                print("The user tapped Okay!")
+            end
+        }
+    },
+})
+
+-- Send Message Automatically When Injected
+task.spawn(function()
+    local TextChatService = game:GetService("TextChatService")
+    local ChatChannel = TextChatService and TextChatService.TextChannels and TextChatService.TextChannels.RBXGeneral
+
+    if ChatChannel then
+        pcall(function() ChatChannel:SendAsync("Script by Mev and Xen") end)
+    else
+        warn("RBXGeneral chat channel not found!")
+    end
+end)
+
+-- Walkspeed Slider
+local Slider = MainTab:CreateSlider({
+    Name = "Walkspeed Slider",
+    Range = {0, 1000},
+    Increment = 10,
+    Suffix = "Walkspeed",
+    CurrentValue = 10,
+    Flag = "Walkspeed",
+    Callback = function(Value)
+        local Player = game.Players.LocalPlayer
+        if Player and Player.Character and Player.Character:FindFirstChild("Humanoid") then
+            Player.Character.Humanoid.WalkSpeed = Value
+        else
+            warn("Local player or humanoid not found")
+        end
+    end,
+})
+
+-- Kitty UI Button
+local KittyButton = MainTab:CreateButton({
+    Name = "Kitty UI",
+    Callback = function()
+        pcall(loadstring(game:HttpGet('https://whimper.xyz/kitty', true)))
+    end,
+})
+
+-- Chat Message Button (Regular Message)
+local ChatButton = ChatTab:CreateButton({
+    Name = "Send Chat Message",
+    Callback = function()
+        local TextChatService = game:GetService("TextChatService")
+        local ChatChannel = TextChatService and TextChatService.TextChannels and TextChatService.TextChannels.RBXGeneral
+
+        if ChatChannel then
+            pcall(function() ChatChannel:SendAsync("Script Made By Mevv/Xen") end)
+        else
+            warn("RBXGeneral chat channel not found!")
+        end
+    end,
+})
+
+local Dropdown = EmoteTab:CreateDropdown({
+    Name = "Pick emote u wanna do",
+    Options = {"billy bounce", "Juice wrld"},
+    CurrentOption = "billy bounce",
+    MultipleOptions = false,
+    Flag = "Dropdown1",
+    Callback = function(Options)
+        Dropdown.CurrentOption = Options[1]
+    end
+})
+
+local EmoteButton = EmoteTab:CreateButton({
+    Name = "Do Emote",
+    Callback = function()
+        local selectedEmote = Dropdown.CurrentOption
+        local Player = game.Players.LocalPlayer
+        if Player and Player.Character then
+            local Humanoid = Player.Character:FindFirstChild("Humanoid")
+            if Humanoid then
+                local animationId = ""
+                if selectedEmote == "billy bounce" then
+                    animationId = "rbxassetid://13837130761" -- Replace with actual ID
+                elseif selectedEmote == "Juice wrld" then
+                    animationId = "rbxassetid://5849911956" -- Replace with actual ID
+                end
+                if animationId ~= "" then
+                    local animation = Instance.new("Animation")
+                    animation.AnimationId = animationId
+                    local animationTrack = Humanoid:LoadAnimation(animation)
+                    pcall(function() animationTrack:Play() end)
+                else
+                    warn("No animation ID found for selected emote")
+                end
+            else
+                warn("Humanoid not found")
+            end
+        else
+            warn("Player or Character not found")
+        end
+    end
+})
+
+-- New Button for "When Me and the Gang Pull Up" lyrics
+local GangPullUpButton = ChatTab:CreateButton({
+    Name = "When Me and the Gang Pull Up Lyrics",
+    Callback = function()
+        local lyrics = [[
+    When me and the gang pull up (pull up)
+    We gon' show you what’s up (what’s up)
+        ]]
+
+        local TextChatService = game:GetService("TextChatService")
+        local ChatChannel = TextChatService and TextChatService.TextChannels and TextChatService.TextChannels.RBXGeneral
+
+        if ChatChannel then
+            pcall(function() ChatChannel:SendAsync(lyrics) end)
+        else
+            warn("RBXGeneral chat channel not found!")
+        end
+    end,
+})
+
+-- New Button for "Camz K"
+local CamzButton = ChatTab:CreateButton({
+    Name = "Camz K",
+    Callback = function()
+        local message = "Camz K!"
+        local TextChatService = game:GetService("TextChatService")
+        local ChatChannel = TextChatService and TextChatService.TextChannels and TextChatService.TextChannels.RBXGeneral
+
+        if ChatChannel then
+           pcall(function()  ChatChannel:SendAsync(message) end)
+        else
+            warn("RBXGeneral chat channel not found!")
+        end
+    end,
+})
+
+local InvisableButton = ChatTab:CreateButton({
+    Name = "Invisable Text",
+    Callback = function()
+        local message = utf8.char(0x2063) -- Zero Width Invisible Separator
+        local TextChatService = game:GetService("TextChatService")
+        local ChatChannel = TextChatService and TextChatService.TextChannels and TextChatService.TextChannels.RBXGeneral
+
+        if ChatChannel then
+            pcall(function() ChatChannel:SendAsync(message) end)
+        else
+            warn("RBXGeneral chat channel not found!")
+        end
+    end,
+})
+local MevButton = ChatTab:CreateButton({
+    Name = "Mev on Top",
+    Callback = function()
+        local message = "Mev on top!"
+        local TextChatService = game:GetService("TextChatService")
+        local ChatChannel = TextChatService and TextChatService.TextChannels and TextChatService.TextChannels.RBXGeneral
+
+        if ChatChannel then
+            pcall(function() ChatChannel:SendAsync(message) end)
+        else
+            warn("RBXGeneral chat channel not found!")
+        end
+    end,
+})
+
+-- New Button for "Xen on Top"
+local XenButton = ChatTab:CreateButton({
+    Name = "Xen on Top",
+    Callback = function()
+        local message = "Xen on top!"
+        local TextChatService = game:GetService("TextChatService")
+        local ChatChannel = TextChatService and TextChatService.TextChannels and TextChatService.TextChannels.RBXGeneral
+
+        if ChatChannel then
+            pcall(function() ChatChannel:SendAsync(message) end)
+        else
+            warn("RBXGeneral chat channel not found!")
+        end
+    end,
+})
+
+-- Infinite Yield Button
+local InfYieldButton = MainTab:CreateButton({
+    Name = "Inf Yield",
+    Callback = function()
+        pcall(loadstring(game:HttpGet("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source", true)))
+    end,
+})
+
+-- C to Reverse Button
+local ReverseButton = MainTab:CreateButton({
+    Name = "C to Reverse",
+    Callback = function()
+       pcall(loadstring(game:HttpGet("https://raw.githubusercontent.com/nomercy0000/rewind/refs/heads/main/reverse")))
+    end,
+})
+
+-- Emote Script For the new Gens Button
+local NewGensEmoteButton = EmoteTab:CreateButton({
+    Name = "Emote Script For the new Gens (accept = Mev and Xen :)) )",
+    Callback = function()
+        pcall(loadstring(game:HttpGet("https://raw.githubusercontent.com/nomercy0000/rewind/refs/heads/main/reverse")))
+    end,
+})
+
+local Input = TrollTab:CreateInput({
+    Name = "Goto Player Player",
+    CurrentValue = "",
+    PlaceholderText = "User1",
+    RemoveTextAfterFocusLost = false,
+    Flag = "username",
+    Callback = function(Text)
+        -- The function that takes place when the input is changed
+        -- The variable (Text) is a string for the value in the text box
+    end,
+})
+
+-- Load's basplate Button
+local BasplateButton = MainTab:CreateButton({
+    Name = "Baseplate",
+    Callback = function()
+       local Workspace = game:GetService("Workspace");
+local Players = game:GetService("Players");
+local Player = Players.LocalPlayer
+local Terrain = Workspace.Terrain
+Terrain:FillBlock(CFrame.new(66, -10, 72.5), Vector3.new(10000, 16, 10000), Enum.Material.Asphalt)
+    end,
+})
+
+local Button = TrollTab:CreateButton({
+    Name = "Goto Player",
+    Callback = function()
+        -- The function that takes place when the button is pressed
+        local playerName = Input.CurrentValue
+        local foundPlayer = nil
+
+        -- Search for player by username or display name
+        for _, player in ipairs(game.Players:GetPlayers()) do
+            if string.lower(player.Name):find(string.lower(playerName)) or string.lower(player.DisplayName):find(string.lower(playerName)) then
+                foundPlayer = player
+                break -- Stop searching once a match is found
+            end
+        end
+
+        if foundPlayer then
+            -- Player exists, teleport the local player to the found player
+            local localPlayer = game.Players.LocalPlayer
+            local character = localPlayer.Character
+
+            if character and character:FindFirstChild("HumanoidRootPart") then
+                character:SetPrimaryPartCFrame(foundPlayer.Character.PrimaryPart.CFrame * CFrame.new(0, 5, 0)) -- Teleport slightly above
+            else
+                warn("Local player's character or HumanoidRootPart not found.")
+            end
+        else
+            warn("Player '" .. playerName .. "' not found in the game.")
+        end
+    end,
+})
+
+local Toggle = TrollTab:CreateToggle({
+    Name = "Spam Goto",
+    CurrentValue = false,
+    Flag = "Toggle1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+    Callback = function(Value)
+        -- The function that takes place when the toggle is pressed
+        -- The variable (Value) is a boolean on whether the toggle is true or false
+        if Value then
+            -- Spam Goto enabled
+            coroutine.wrap(function()
+                while Toggle.CurrentValue do -- Keep teleporting while the toggle is enabled
+                    local playerName = Input.CurrentValue
+                    local foundPlayer = nil
+
+                    -- Search for player by username or display name
+                    for _, player in ipairs(game.Players:GetPlayers()) do
+                        if string.lower(player.Name):find(string.lower(playerName)) or string.lower(player.DisplayName):find(string.lower(playerName)) then
+                            foundPlayer = player
+                            break -- Stop searching once a match is found
+                        end
+                    end
+
+                    if foundPlayer then
+                        -- Player exists, teleport the local player to the found player
+                        local localPlayer = game.Players.LocalPlayer
+                        local character = localPlayer.Character
+
+                        if character and character:FindFirstChild("HumanoidRootPart") then
+                            character:SetPrimaryPartCFrame(foundPlayer.Character.PrimaryPart.CFrame * CFrame.new(0, 5, 0)) -- Teleport slightly above
+                        else
+                            warn("Local player's character or HumanoidRootPart not found.")
+                        end
+                    else
+                        warn("Player '" .. playerName .. "' not found in the game.")
+                    end
+
+                    wait(1) -- Wait for 1 second before teleporting again (adjust as needed)
+                end
+            end)()
+        end
+    end,
+})
+
+
+-- SystemBroken Button
+local SystemBrokenButton = MainTab:CreateButton({
+    Name = "SystemBroken",
+    Callback = function()
+        pcall(loadstring(game:HttpGet("https://raw.githubusercontent.com/H20CalibreYT/SystemBroken/main/script", true)))
+    end,
+})
+
+-- Rejoin Button
+local RejoinButton = MainTab:CreateButton({
+    Name = "Rejoin",
+    Callback = function()
+        local ts = game:GetService("TeleportService")
+        local p = game:GetService("Players").LocalPlayer
+        if p then
+           pcall(function() ts:TeleportToPlaceInstance(game.PlaceId, game.JobId, p) end)
+        else
+            warn("Local player not found!")
+        end
+    end,
+})
+
+-- New Text Buttons for "koa k", "strawberry k", "retire new gen", "your a new gen"
+local KoaKButton = ChatTab:CreateButton({
+    Name = "koa k",
+    Callback = function()
+        local message = "koa k"
+        local TextChatService = game:GetService("TextChatService")
+        local ChatChannel = TextChatService and TextChatService.TextChannels and TextChatService.TextChannels.RBXGeneral
+
+        if ChatChannel then
+            pcall(function() ChatChannel:SendAsync(message) end)
+        else
+            warn("RBXGeneral chat channel not found!")
+        end
+    end,
+})
+
+-- Button for part of "LEBRON" lyrics
+local LEBRONButton = ChatTab:CreateButton({
+   Name = "LEBROOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOON Lyrics",
+   Callback = function()
+      local lyrics = [[
+      LEBROOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOON
+      ]]
+      
+      local TextChatService = game:GetService("TextChatService")
+      local ChatChannel = TextChatService and TextChatService.TextChannels and TextChatService.TextChannels.RBXGeneral
+
+      if ChatChannel then
+         ChatChannel:SendAsync(lyrics)
+      else
+         warn("RBXGeneral chat channel not found!")
+      end
+   end,
+})
+
+local StrawberryKButton = ChatTab:CreateButton({
+    Name = "strawberry k",
+    Callback = function()
+        local message = "strawberry k"
+        local TextChatService = game:GetService("TextChatService")
+        local ChatChannel = TextChatService and TextChatService.TextChannels and TextChatService.TextChannels.RBXGeneral
+
+        if ChatChannel then
+            pcall(function() ChatChannel:SendAsync(message) end)
+        else
+            warn("RBXGeneral chat channel not found!")
+        end
+    end,
+})
+
+local RetireNewGenButton = ChatTab:CreateButton({
+    Name = "retire new gen!",
+    Callback = function()
+        local message = "retire new gen"
+        local TextChatService = game:GetService("TextChatService")
+        local ChatChannel = TextChatService and TextChatService.TextChannels and TextChatService.TextChannels.RBXGeneral
+
+        if ChatChannel then
+            pcall(function() ChatChannel:SendAsync(message) end)
+        else
+            warn("RBXGeneral chat channel not found!")
+        end
+    end,
+})
+
+local YourANewGenButton = ChatTab:CreateButton({
+    Name = "your a new gen!",
+    Callback = function()
+        local message = "your a new gen"
+        local TextChatService = game:GetService("TextChatService")
+        local ChatChannel = TextChatService and TextChatService.TextChannels and TextChatService.TextChannels.RBXGeneral
+
+        if ChatChannel then
+            pcall(function() ChatChannel:SendAsync(message) end)
+        else
+            warn("RBXGeneral chat channel not found!")
+        end
+    end,
+})
+
+-- Emotee UI Button
+local EmoteeButton = MainTab:CreateButton({
+    Name = "Emote UI hit , to open",
+    Callback = function()
+        loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/Gi7331/scripts/main/Emote.lua"))()
+    end,
+})
+
+-- New Text Buttons for "Dia k", "strawberry k", "retire new gen", "your a new gen"
+local DiaKButton = ChatTab:CreateButton({
+    Name = "Dia k",
+    Callback = function()
+        local message = "Dia k"
+        local TextChatService = game:GetService("TextChatService")
+        local ChatChannel = TextChatService and TextChatService.TextChannels and TextChatService.TextChannels.RBXGeneral
+
+        if ChatChannel then
+            pcall(function() ChatChannel:SendAsync(message) end)
+        else
+            warn("RBXGeneral chat channel not found!")
+        end
+    end,
+})
+
+-- New Text Buttons for "Dia k", "strawberry k", "retire new gen", "your a new gen"
+local reminiscingKButton = ChatTab:CreateButton({
+    Name = "reminiscing K",
+    Callback = function()
+        local message = "reminiscing K"
+        local TextChatService = game:GetService("TextChatService")
+        local ChatChannel = TextChatService and TextChatService.TextChannels and TextChatService.TextChannels.RBXGeneral
+
+        if ChatChannel then
+            pcall(function() ChatChannel:SendAsync(message) end)
+        else
+            warn("RBXGeneral chat channel not found!")
+        end
+    end,
+})
