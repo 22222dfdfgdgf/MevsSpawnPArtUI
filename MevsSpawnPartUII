@@ -1,120 +1,140 @@
--- Ensure Rayfield loads properly
-local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield', true))()
+local _0x3b2a = {
+    _0x1b41 = "https://sirius.menu/rayfield",
+    _0x546b = "Failed to load Rayfield!",
+    _0x56a4 = "Mev's Spawn Part Hub :)",
+    _0x2e8f = "Mev's Spawn Part Hub :",
+    _0x127b = "by Mevv",
+    _0x2417 = "Ocean",
+    _0x33b9 = "MevsTrollHub",
+    _0x5928 = "MevsTrollHub_Config",
+    _0x42f2 = "noinvitelink",
+    _0x386d = "Join Discord",
+    _0x3785 = "Mev's Key System",
+    _0x280e = "Join My discord for the Key (https://discord.gg/FqyZWE9nz4)",
+    _0x165a = "Key",
+    _0x4516 = "https://pastebin.com/raw/w051pyzV",
+    _0x31a2 = "Spawn Part Window 🤿🤡🔨",
+    _0x2391 = "W Trol UI -- Made by Mevv",
+    _0x17d6 = "You executed the script",
+    _0x3f98 = "Very cool GUI",
+    _0x21c3 = "Okay!",
+    _0x1259 = "The user tapped Okay!",
+    _0x5824 = "RBXGeneral chat channel not found!",
+    _0x514e = "Script Made by Mev!!",
+    _0x450f = "Part",
+    _0x5825 = 4,
+    _0x1404 = 2,
+    _0x3784 = "Player character or HumanoidRootPart not found!",
+    _0x5530 = "Spawn Part",
+    _0x576d = "Delete All Parts",
+}
 
--- Wait for Rayfield to load completely before proceeding
-if not Rayfield then
-    warn("Failed to load Rayfield!")
+local _0x21e8 = loadstring(game:HttpGet(_0x3b2a._0x1b41, true))()
+
+if not _0x21e8 then
+    warn(_0x3b2a._0x546b)
     return
 end
 
-local Window = Rayfield:CreateWindow({
-    Name = "Mev's Spawn Part Hub :)",
-    LoadingTitle = "Mev's Spawn Part Hub :",
-    LoadingSubtitle = "by Mevv",
-    Theme = "Ocean",
-
+local _0x309a = _0x21e8:CreateWindow({
+    Name = _0x3b2a._0x56a4,
+    LoadingTitle = _0x3b2a._0x2e8f,
+    LoadingSubtitle = _0x3b2a._0x127b,
+    Theme = _0x3b2a._0x2417,
     DisableRayfieldPrompts = false,
     DisableBuildWarnings = false,
-
     ConfigurationSaving = {
         Enabled = true,
-        FolderName = "MevsTrollHub",
-        FileName = "MevsTrollHub_Config"
+        FolderName = _0x3b2a._0x33b9,
+        FileName = _0x3b2a._0x5928,
     },
-
     Discord = {
         Enabled = false,
-        Invite = "noinvitelink",
-        RememberJoins = true
+        Invite = _0x3b2a._0x42f2,
+        RememberJoins = true,
     },
-
     KeySystem = true,
     KeySettings = {
-        Title = "Join Discord",
-        Subtitle = "Mev's Key System",
-        Note = "Join My discord for the Key (https://discord.gg/FqyZWE9nz4)",
-        FileName = "Key",
+        Title = _0x3b2a._0x386d,
+        Subtitle = _0x3b2a._0x3785,
+        Note = _0x3b2a._0x280e,
+        FileName = _0x3b2a._0x165a,
         SaveKey = true,
         GrabKeyFromSite = true,
-        Key = {"https://pastebin.com/raw/w051pyzV"}
-    }
+        Key = {_0x3b2a._0x4516},
+    },
 })
 
--- Load Configuration
-Rayfield.LoadConfiguration()
+_0x21e8:LoadConfiguration()
 
--- Main Tab
-local MainTab = Window:CreateTab("Spawn Part Window 🤿🤡🔨")
-local MainSection = MainTab:CreateSection("W Trol UI -- Made by Mevv")
+local _0x5105 = _0x309a:CreateTab(_0x3b2a._0x31a2)
+local _0x593d = _0x5105:CreateSection(_0x3b2a._0x2391)
 
-
-Rayfield:Notify({
-    Title = "You executed the script",
-    Content = "Very cool GUI",
+_0x21e8:Notify({
+    Title = _0x3b2a._0x17d6,
+    Content = _0x3b2a._0x3f98,
     Duration = 5,
     Image = nil,
     Actions = {
         Ignore = {
-            Name = "Okay!",
+            Name = _0x3b2a._0x21c3,
             Callback = function()
-                print("The user tapped Okay!")
-            end
-        }
+                print(_0x3b2a._0x1259)
+            end,
+        },
     },
 })
 
--- Send Message Automatically When Injected
 task.spawn(function()
-    local TextChatService = game:GetService("TextChatService")
-    local ChatChannel = TextChatService and TextChatService.TextChannels and TextChatService.TextChannels.RBXGeneral
-
-    if ChatChannel then
-        pcall(function() ChatChannel:SendAsync("Script Made by Mev!!") end)
+    local _0x438d = game:GetService("TextChatService")
+    local _0x284f = _0x438d and _0x438d.TextChannels and _0x438d.TextChannels.RBXGeneral
+    if _0x284f then
+        pcall(function()
+            _0x284f:SendAsync(_0x3b2a._0x514e)
+        end)
     else
-        warn("RBXGeneral chat channel not found!")
+        warn(_0x3b2a._0x5824)
     end
 end)
 
-local spawnedParts = {} -- Initialize the table to store spawned parts
+local _0x2914 = {}
 
-local Button = MainTab:CreateButton({
-    Name = "Spawn Part",
+local _0x5423 = _0x5105:CreateButton({
+    Name = _0x3b2a._0x5530,
     Callback = function()
-        local player = game.Players.LocalPlayer
-        local part = Instance.new("Part")
-        part.Size = Vector3.new(4, 2, 4)
-        part.Anchored = true
-        part.Parent = workspace
-
-        local character = player.Character
-        if character and character.HumanoidRootPart then
-            local rootPart = character.HumanoidRootPart
-            local spawnDistance = 5
-            part.CFrame = rootPart.CFrame * CFrame.new(0, 0, -spawnDistance)
+        local _0x5583 = game.Players.LocalPlayer
+        local _0x1a33 = Instance.new(_0x3b2a._0x450f)
+        _0x1a33.Size = Vector3.new(_0x3b2a._0x5825, _0x3b2a._0x1404, _0x3b2a._0x5825)
+        _0x1a33.Anchored = true
+        _0x1a33.Parent = workspace
+        local _0x306c = _0x5583.Character
+        if _0x306c and _0x306c.HumanoidRootPart then
+            local _0x4466 = _0x306c.HumanoidRootPart
+            local _0x4642 = 5
+            _0x1a33.CFrame = _0x4466.CFrame * CFrame.new(0, 0, -_0x4642)
         else
-            warn("Player character or HumanoidRootPart not found!")
-            part:Destroy()
+            warn(_0x3b2a._0x3784)
+            _0x1a33:Destroy()
             return
         end
-
-        if not spawnedParts[player] then
-            spawnedParts[player] = {}
+        if not _0x2914[_0x5583] then
+            _0x2914[_0x5583] = {}
         end
-        table.insert(spawnedParts[player], part)
-    end
+        table.insert(_0x2914[_0x5583], _0x1a33)
+    end,
 })
 
-local MainButton = MainTab:CreateButton({
-    Name = "Delete All Parts",
+local _0x234d = _0x5105:CreateButton({
+    Name = _0x3b2a._0x576d,
     Callback = function()
-        local player = game.Players.LocalPlayer
-        if spawnedParts[player] then
-            for _, part in ipairs(spawnedParts[player]) do
-                if part and part.Parent then
-                    part:Destroy()
+        local _0x4c27 = game.Players.LocalPlayer
+        if _0x2914[_0x4c27] then
+            for _, _0x2f8b in ipairs(_0x2914[_0x4c27]) do
+                if _0x2f8b and _0x2f8b.Parent then
+                    _0x2f8b:Destroy()
                 end
             end
-            spawnedParts[player] = {}
+            _0x2914[_0x4c27] = {}
         end
     end,
 })
